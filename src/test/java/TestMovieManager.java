@@ -16,7 +16,7 @@ public class TestMovieManager {
             "Звонок"};
     @ParameterizedTest
     @CsvSource({"Мой сосед Тоторо"})
-    public void shouldAddMovieAndFindAll(String movie){
+    public void shouldAddMovieAndFindAllOutLimit(String movie){
         MovieManager manager = new MovieManager();
         manager.movies = myMovies;
         manager.addMovie(movie);
@@ -36,7 +36,7 @@ public class TestMovieManager {
         Assertions.assertArrayEquals(exp, act);
     }
     @Test
-    public void shouldShowLastMoviesWithLimit(){
+   public void shouldShowLastMoviesWithLimit(){
         MovieManager manager = new MovieManager(5);
         manager.movies = myMovies;
         String[] exp = {"Звонок",
@@ -46,6 +46,44 @@ public class TestMovieManager {
                 "Кавказкая пленница"
         };
         String[] act = manager.findLast();
+        Assertions.assertArrayEquals(exp, act);
     }
+    @Test
+    public void shouldShowLastMoviesEqualsLimit(){
+        MovieManager manager = new MovieManager();
+        manager.movies = myMovies;
+        String[] exp = {"Звонок",
+                "Цельнометалическая Оболочка",
+                "Пролетая над гнездом кукушки",
+                "Матрица",
+                "Кавказкая пленница",
+                "Ёлки",
+                "Побег из шоушенка",
+                "Унесённые ветром",
+                "Форсаж",
+                "Терминатор"
+        };
+        String[] act = manager.findLast();
+        Assertions.assertArrayEquals(exp, act);
+    }
+    @Test
+    public void shouldShowLastMoviesLessLimit(){
+        MovieManager manager = new MovieManager(15);
+        manager.movies = myMovies;
+        String[] exp = {"Звонок",
+                "Цельнометалическая Оболочка",
+                "Пролетая над гнездом кукушки",
+                "Матрица",
+                "Кавказкая пленница",
+                "Ёлки",
+                "Побег из шоушенка",
+                "Унесённые ветром",
+                "Форсаж",
+                "Терминатор"
+        };
+        String[] act = manager.findLast();
+        Assertions.assertArrayEquals(exp, act);
+    }
+
 
 }

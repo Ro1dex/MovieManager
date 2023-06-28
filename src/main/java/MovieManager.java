@@ -1,14 +1,16 @@
 
 public class MovieManager {
     public String[] movies;
-    private int limit;
+    private final int limit;
 
     public MovieManager() {
         this.limit = 10;
+        this.movies = new String[0];
     }
 
     public MovieManager(int limit) {
         this.limit = limit;
+        this.movies = new String[0];
     }
 
 
@@ -26,17 +28,21 @@ public class MovieManager {
     }
 
     public String[] findLast() {
-        //последние фильмы
-        String lastMovies[] = new String[limit];
-        for (int i = 0; i < limit; i++) {
-            lastMovies[i] = movies[movies.length - 1 - i];
+
+        // нужен массив самый меньший limit или длинна массива фильмов
+        // Так как встречалась ошибка несоответствия длинны массива
+        // Либо отрицательная длинна массива
+        String[] lastMovies = new String[Math.min(limit, movies.length)];
+        int newIndex = 0;
+
+
+        for (int i = movies.length - 1; i >= 0 && newIndex < limit; i--){
+            if (movies[i] != null) {
+                lastMovies[newIndex] = movies[i];
+                newIndex++;
+            }
         }
-        //теперь нужно это перевернуть
-        for (int i = 0; i < lastMovies.length / 2; i++) {
-            String temp = lastMovies[i];
-            lastMovies[i] = lastMovies[lastMovies.length - 1 - i];
-            lastMovies[lastMovies.length - 1 - i] = temp;
-        }
+
         return lastMovies;
     }
 }
