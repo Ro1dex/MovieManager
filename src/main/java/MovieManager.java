@@ -37,10 +37,10 @@ public class MovieManager {
 
 
         for (int i = movies.length - 1; i >= 0 && newIndex < limit; i--){
-            if (movies[i] != null) {
+
                 lastMovies[newIndex] = movies[i];
                 newIndex++;
-            }
+
         }
 
         return lastMovies;
